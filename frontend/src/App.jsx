@@ -1,5 +1,6 @@
 import React from "react";
 import AuthWrapper from "./components/AuthWrapper";
+import TopBar from "./components/TopBar";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       justifyContent: "center",
       alignItems: "center"
     }}>
+      <TopBar />
     <AuthWrapper />
     </div>
   );
