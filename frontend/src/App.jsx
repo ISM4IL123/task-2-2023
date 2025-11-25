@@ -1,19 +1,38 @@
-import React from "react";
-import AuthWrapper from "./components/AuthWrapper";
+import React, { use, useEffect, useState } from "react";
 import TopBar from "./components/TopBar";
 
-function App() {
+import LoginPage from "./Login/LoginPage";
+import SignupPage from "./Sign up/SignupPage";
+import HomePage from "./HomePage":
+
+export default function App() {
+  const [currentPage, setCurrentPage] = useState(
+    localStorage.getItem("currentPage") || "login"
+  );
+  useEffect(() => {localStorage.setItem("currentPage", currentPage);
+  }, [currentPage]);
+
+  const goToLogin = () => setCurrentPage("login");
+  const goToSignup = () => setCurrentPage("signup");
+  const goToHome = () => setCurrentPage("home");
+  
   return (
     <div style={{
       minHeight: "100vh",
-      background: "rgba(10, 30, 48, 0.3))",
+      background: "linear-gradient(135deg, #131e30, #243b55)",
       display: "flex",
-      justifyContent: "center",
       alignItems: "center"
     }}>
-      <TopBar />
-    <AuthWrapper />
+      <TopBar/>
+      {currentPage === "login" && (
+        <LoginPage onLoginSuccess={goToHome} goToSignup={goToSignup}/>
+      )}
+      {currentPage === "signup" && (
+        <SignupPage goToLogin={goToLogin} />
+      )}
+      {currentPage === "home" && (
+        <HomePage goToLogin={goToLogin} />
+      )}
     </div>
   );
 }
-export default App;
